@@ -1,6 +1,6 @@
 import {
   dottify,
-  applyClass
+  applyOptions
 } from 'ember-inline-svg/utils/general';
 
 import {module, test} from 'qunit';
@@ -15,10 +15,10 @@ test('removes leading slashes before replacing slashes with dots', function(asse
   assert.equal(dottify("/foo/bar/baz"), "foo.bar.baz");
 });
 
-module('utils: applyClass');
+module('utils: applyOptions');
 
-test('adds class to svg element', function(assert) {
-  assert.equal(applyClass('<svg></svg>', 'a-class'), '<svg class="a-class"></svg>');
-  assert.equal(applyClass('<svg width="100"></svg>', 'a-class'), '<svg class="a-class" width="100"></svg>');
-  assert.equal(applyClass('<svg></svg>', null), '<svg></svg>');
+test('applies props to svg element', function(assert) {
+  assert.equal(applyOptions('<svg></svg>', {'class': 'a-class'}), '<svg class="a-class"></svg>');
+  assert.equal(applyOptions('<svg></svg>', {'fill': 'red'}), '<svg fill="red"></svg>');
+  assert.equal(applyOptions('<svg></svg>', {}), '<svg></svg>');
 });
