@@ -29,12 +29,13 @@ test('displays SVG in subdirectory', function(assert) {
   });
 });
 
-test('adds class to SVG', function(assert) {
-  visit('/class');
+test('adds attrs to SVG', function(assert) {
+  visit('/options');
 
   andThen(function() {
-    assert.ok(find(".kiwi-image-with-a-class svg.with-a-class"), "has added the class");
+    assert.ok(find(".kiwi-image-with-attributes svg.with-a-class"), "has added the class");
   });
+  // TODO Needs more tests for attributes
 });
 
 test('trims unnecessary .svg extension', function(assert) {

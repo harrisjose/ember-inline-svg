@@ -19,6 +19,6 @@ module('utils: applyOptions');
 
 test('applies props to svg element', function(assert) {
   assert.equal(applyOptions('<svg></svg>', {'class': 'a-class'}), '<svg class="a-class"></svg>');
-  assert.equal(applyOptions('<svg width="100"></svg>', {'class': 'a-class'}), '<svg width="100" class="a-class"></svg>');
+  assert.equal(applyOptions('<svg></svg>', {'fill': 'red'}), '<svg fill="red"></svg>');
   assert.equal(applyOptions('<svg></svg>', {}), '<svg></svg>');
 });

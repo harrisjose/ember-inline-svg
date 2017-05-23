@@ -10,10 +10,10 @@ Displays SVG images inline.
 
 This will display the SVG found at `/public/path/to/file.svg` (see below on how to change this).
 
-You can specify a class for the element like so:
+You can specify attributes for the element like so:
 
 ```handlebars
-{{inline-svg "my-svg" class="foo"}}
+{{inline-svg "my-svg" class="foo" fill="blue"}}
 ```
 
 ## Configuring
