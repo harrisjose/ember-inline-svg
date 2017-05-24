@@ -7,15 +7,14 @@ export function dottify(path) {
 }
 
 // Should consider using browsers createElement instead of jquery
-// for perf https://jsperf.com/create-svg but `classList` support is still
-// not very good for SVGs across browsers
+// for perf https://jsperf.com/create-svg but `classList` support is still not very
+// good for SVGs across browsers
 export function applyOptions(svg, options) {
   let svgElement = $.parseHTML(svg);
 
-  for (var option in options) {
-    if (options.hasOwnProperty(option)) {
-      $(svgElement).attr(option, options[option]);
-    }
-  }
+  Object.keys(options).forEach(option => {
+    $(svgElement).attr(option, options[option]);
+  });
+
   return $(svgElement).prop('outerHTML');
 }
