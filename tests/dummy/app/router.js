@@ -7,10 +7,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route("root");
-  this.route("subdirectory");
-  this.route("options");
-  this.route("extension");
+  this.route('root', { path: '/' });
+  this.route('subdirectory');
+  this.route('options');
+  this.route('extension');
 });
 
 export default Router;
