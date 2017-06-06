@@ -11,11 +11,11 @@ export function inlineSvg(path, options) {
 
   // TODO: Ember.get should return `null`, not `undefined`.
   // if (svg === null && /\.svg$/.test(path))
-  if (typeof svg === "undefined" && /\.svg$/.test(path)) {
+  if (typeof svg === 'undefined' && /\.svg$/.test(path)) {
     svg = Ember.get(SVGs, jsonPath.slice(0, -4));
   }
 
-  Ember.assert("No SVG found for "+path, svg);
+  Ember.assert('No SVG found for '+path, svg);
 
   svg = applyOptions(svg, options);
 
@@ -24,7 +24,7 @@ export function inlineSvg(path, options) {
 
 let helper;
 if (Ember.Helper && Ember.Helper.helper) {
-  helper = Ember.Helper.helper(function([path], options) {
+  helper = Ember.Helper.helper(function([ path ], options) {
     return inlineSvg(path, options);
   });
 } else {
