@@ -8,22 +8,14 @@ export function dottify(path) {
 // https://jsperf.com/svg-create-and-set-attr
 // https://jsperf.com/create-svg-native
 export function applyOptions(svg, options) {
+  // Hacky code to construct a node out of the svg string
   var div = document.createElement('div');
   div.innerHTML = svg;
   svg = div.firstChild;
 
-  // Switch to this version once phantom.js is removed entirely
-  // or tests that depend on svgs will fail
-  //
-  // Object.keys(options).forEach(option => {
-  //   svg.setAttribute(option, options[option]);
-  // });
-
-  for (var option in options) {
-    if (Object.hasOwnProperty.call(options, option)) {
-      svg.setAttribute(option, options[option]);
-    }
-  }
+  Object.keys(options).forEach(option => {
+    svg.setAttribute(option, options[option]);
+  });
 
   return svg.outerHTML;
 }
