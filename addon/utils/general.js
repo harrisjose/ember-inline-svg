@@ -12,9 +12,18 @@ export function applyOptions(svg, options) {
   div.innerHTML = svg;
   svg = div.firstChild;
 
-  Object.keys(options).forEach( option => {
-    svg.setAttribute(option, options[option]);
-  })
+  // Switch to this version once phantom.js is removed entirely
+  // or tests that depend on svgs will fail
+  //
+  // Object.keys(options).forEach(option => {
+  //   svg.setAttribute(option, options[option]);
+  // });
+
+  for (var option in options) {
+    if (Object.hasOwnProperty.call(options, option)) {
+      svg.setAttribute(option, options[option]);
+    }
+  }
 
   return svg.outerHTML;
 }
