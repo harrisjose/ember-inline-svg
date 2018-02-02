@@ -4,18 +4,14 @@ export function dottify(path) {
   return (path || '').replace(/^\//g, '').replace(/\//g, '.');
 }
 
-// Should consider using document fragments for perf
-// https://jsperf.com/svg-create-and-set-attr
-// https://jsperf.com/create-svg-native
 export function applyOptions(svg, options) {
-  // Hacky code to construct a node out of the svg string
-  var div = document.createElement('div');
-  div.innerHTML = svg;
-  svg = div.firstChild;
+  if (!options || !(Object.keys(options).length)) {
+    return svg;
+  }
 
-  Object.keys(options).forEach(option => {
-    svg.setAttribute(option, options[option]);
-  });
+  let attrString = Object.keys(options).reduce((attrs, attr) => {
+    return `${attrs} ${attr}="${options[attr]}"`.trim();
+  }, '');
 
-  return svg.outerHTML;
+  return attrString ? svg.replace('<svg', `<svg ${attrString.trim()}`) : svg;
 }
