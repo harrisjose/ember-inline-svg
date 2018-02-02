@@ -10,8 +10,8 @@ export function applyOptions(svg, options) {
   }
 
   let attrString = Object.keys(options).reduce((attrs, attr) => {
-    return `${attrs} ${attr}="${options[attr]}"`;
+    return `${attrs} ${attr}="${options[attr]}"`.trim();
   }, '');
 
-  return svg.replace('<svg', `<svg ${attrString.trim()}`);
+  return attrString ? svg.replace('<svg', `<svg ${attrString.trim()}`) : svg;
 }
