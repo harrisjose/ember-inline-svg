@@ -1,47 +1,37 @@
-import Ember from 'ember';
 import { module, test } from 'qunit';
-import startApp from '../helpers/start-app';
+import { setupApplicationTest } from 'ember-qunit';
+import { visit, find } from '@ember/test-helpers';
 
-var App;
+module('Acceptance: InlineSvg', function(hooks) {
+  setupApplicationTest(hooks);
 
-module('Acceptance: InlineSvg', {
-  beforeEach: function() {
-    App = startApp();
-  },
-  afterEach: function() {
-    Ember.run(App, 'destroy');
-  }
-});
+  test('displays SVG at root', async function(assert) {
+    await visit('/');
 
-test('displays SVG at root', function(assert) {
-  visit('/');
-
-  andThen(function() {
     assert.ok(find('.kiwi-image-at-root svg'), 'has an SVG');
   });
-});
 
-test('displays SVG in subdirectory', function(assert) {
-  visit('/subdirectory');
+  test('runs through SVGO', async function(assert) {
+    await visit('/');
+   
+    assert.ok(!find(".kiwi-image-at-root svg title"), "has stripped the title");
+  });
 
-  andThen(function() {
+  test('displays SVG in subdirectory', async function(assert) {
+    await visit('/subdirectory');
+
     assert.ok(find('.kiwi-image-in-directory svg'), 'has an SVG which is in a directory');
   });
-});
 
-test('adds attrs to SVG', function(assert) {
-  visit('/options');
+  test('adds attrs to SVG', async function(assert) {
+    await visit('/options');
 
-  andThen(function() {
     assert.ok(find('.kiwi-image-with-attributes svg.with-a-class'), 'has added the class');
   });
-  // TODO Needs more tests for attributes
-});
 
-test('trims unnecessary .svg extension', function(assert) {
-  visit('/extension');
+  test('trims unnecessary .svg extension', async function(assert) {
+    await visit('/extension');
 
-  andThen(function() {
     assert.ok(find('.kiwi-image-with-extension svg'), 'has an SVG, extension was trimmed');
   });
 });

@@ -9,39 +9,52 @@ var SVGO          = require('svgo');
 var RSVP          = require('rsvp');
 var fs            = require('fs');
 
-// TODO - extract this to its own broccoli plugin
-module.exports = CachingWriter.extend({
-  updateCache: function(srcDirs, destDir) {
-    var svgo = new SVGO(this.svgoConfig);
+SVGOptimizer.prototype = Object.create(CachingWriter.prototype);
+SVGOptimizer.prototype.constructor = SVGOptimizer;
 
-    return mapSeries(srcDirs, function(srcDir) {
-      var paths = walkSync(srcDir);
+function SVGOptimizer(inputNodes, options) {
+  options = options || {};
+  this.svgoConfig = options.svgoConfig;
 
-      return mapSeries(paths, function(relativePath) {
-        if (/\/$/.test(relativePath)) {
-          mkdirp.sync(destDir + '/' + relativePath);
-          return;
-        }
+  CachingWriter.call(this, inputNodes, {
+    annotation: options.annotation,
+    cacheInclude: [/\.svg/]
+  });
+}
 
-        if (/\.svg$/.test(relativePath)) {
-          var srcPath  = path.join(srcDir, relativePath);
-          var destPath = path.join(destDir, relativePath);
-          var rawSVG   = fs.readFileSync(srcPath, { encoding: 'utf8' });
+SVGOptimizer.prototype.build = function() {
+  var svgo = new SVGO(this.svgoConfig);
+  var destDir = this.outputPath;
 
-          return new RSVP.Promise(function(resolve, reject) {
-            svgo.optimize(rawSVG).then(function(result) {
-              if (result.error) {
-                var error = new Error(result.error);
-                error.file = relativePath;
-                return reject(error);
-              }
+  return mapSeries(this.inputPaths, function(srcDir) {
+    var paths = walkSync(srcDir);
 
-              fs.writeFileSync(destPath, result.data, { encoding: 'utf8' });
-              resolve();
-            });
+    return mapSeries(paths, function(relativePath) {
+      if (/\/$/.test(relativePath)) {
+        mkdirp.sync(destDir + '/' + relativePath);
+        return;
+      }
+
+      if (/\.svg$/.test(relativePath)) {
+        var srcPath  = path.join(srcDir, relativePath);
+        var destPath = path.join(destDir, relativePath);
+        var rawSVG   = fs.readFileSync(srcPath, { encoding: 'utf8' });
+
+        return new RSVP.Promise(function(resolve, reject) {
+          svgo.optimize(rawSVG).then(function(result) {
+            if (result.error) {
+              var error = new Error(result.error);
+              error.file = relativePath;
+              return reject(error);
+            }
+
+            fs.writeFileSync(destPath, result.data, { encoding: 'utf8' });
+            resolve();
           });
-        }
-      });
+        });
+      }
     });
-  }
-});
+  });
+}
+
+module.exports = SVGOptimizer;

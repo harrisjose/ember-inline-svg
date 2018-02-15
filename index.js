@@ -1,4 +1,3 @@
-/* eslint-env node */
 'use strict';
 
 var fs = require('fs');
@@ -41,7 +40,7 @@ module.exports = {
       return tree;
     }
 
-    return new SVGOptmizer(tree, {
+    return new SVGOptmizer([ tree ], {
       svgoConfig: config
     });
   },
