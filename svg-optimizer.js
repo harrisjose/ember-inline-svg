@@ -1,4 +1,4 @@
-/* jshint node: true */
+/* eslint-env node */
 
 var CachingWriter = require('broccoli-caching-writer');
 var mapSeries     = require('promise-map-series');
@@ -29,14 +29,14 @@ module.exports = CachingWriter.extend({
           var rawSVG   = fs.readFileSync(srcPath, { encoding: 'utf8' });
 
           return new RSVP.Promise(function(resolve, reject) {
-            svgo.optimize(rawSVG, function(result) {
+            svgo.optimize(rawSVG).then(function(result) {
               if (result.error) {
                 var error = new Error(result.error);
                 error.file = relativePath;
                 return reject(error);
               }
 
-              fs.writeFileSync(destPath, result.data, { encoding: 'utf8'});
+              fs.writeFileSync(destPath, result.data, { encoding: 'utf8' });
               resolve();
             });
           });

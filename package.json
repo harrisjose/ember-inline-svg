@@ -11,18 +11,18 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "https://github.com/minutebase/ember-inline-svg",
+  "repository": "https://github.com/harrisjose/ember-inline-svg",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 6"
   },
   "author": {
-    "name": "Richard Livsey",
-    "email": "richard@minutebase.com"
+    "name": "Harris Jose",
+    "email": "harrisjose@outlook.com"
   },
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
-    "ember-cli": "^2.13.2",
+    "ember-cli": "^2.16.2",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.3.0",
     "ember-cli-eslint": "^3.0.0",
@@ -56,7 +56,7 @@
     "mkdirp": "^0.5.1",
     "promise-map-series": "^0.2.1",
     "rsvp": "^3.2.1",
-    "svgo": "^0.6.3",
+    "svgo": "^1.0.4",
     "walk-sync": "^0.1.3"
   },
   "ember-addon": {
