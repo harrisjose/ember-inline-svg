@@ -8,30 +8,30 @@ module('Acceptance: InlineSvg', function(hooks) {
   test('displays SVG at root', async function(assert) {
     await visit('/');
 
-    assert.ok(find('.kiwi-image-at-root svg'), 'has an SVG');
+    assert.ok(find('.svg-at-root svg'), 'has an SVG');
   });
 
   test('runs through SVGO', async function(assert) {
     await visit('/');
    
-    assert.ok(!find(".kiwi-image-at-root svg title"), "has stripped the title");
+    assert.ok(!find(".svg-at-root svg title"), "has stripped the title");
   });
 
   test('displays SVG in subdirectory', async function(assert) {
     await visit('/subdirectory');
 
-    assert.ok(find('.kiwi-image-in-directory svg'), 'has an SVG which is in a directory');
+    assert.ok(find('.svg-in-directory svg'), 'has an SVG which is in a directory');
   });
 
   test('adds attrs to SVG', async function(assert) {
     await visit('/options');
 
-    assert.ok(find('.kiwi-image-with-attributes svg.with-a-class'), 'has added the class');
+    assert.ok(find('.svg-with-attributes svg.with-a-class'), 'has added the class');
   });
 
   test('trims unnecessary .svg extension', async function(assert) {
     await visit('/extension');
 
-    assert.ok(find('.kiwi-image-with-extension svg'), 'has an SVG, extension was trimmed');
+    assert.ok(find('.svg-with-extension svg'), 'has an SVG, extension was trimmed');
   });
 });

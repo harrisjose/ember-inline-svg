@@ -4,7 +4,17 @@ Displays SVG images inline. Fork of [ember-inline-svg](https://github.com/minute
 
 ## Installation
 
-`ember install ember-power-select`
+```
+$ ember install zf-inline-svg
+```
+
+## Usage
+
+```handlebars
+{{inline-svg "path/to/file" class="icon" height="20px"}}
+```
+
+**All props you pass to the helper** will be set as **attributes** on the `<svg>` element.
 
 ## Configuration
 
@@ -57,14 +67,6 @@ var app = new EmberApp({
 
 SVGO [now supports](https://github.com/svg/svgo/commit/1ec50c4a13ecea4c50619cdb3bab4926f6aa53e1) custom plugins. See [SVGO's plugins](https://github.com/svg/svgo/tree/master/plugins) for examples on what you can do.
 
-## Usage
-
-```handlebars
-{{inline-svg "path/to/file" class="icon" height="20px"}}
-```
-
-All props you pass to the helper will be set as attributes on the `<svg>` element.
-
 ## Running Tests
 
 * `ember test` – Runs the test suite on the current Ember version
@@ -73,6 +75,7 @@ All props you pass to the helper will be set as attributes on the `<svg>` elemen
 
 ## Running the dummy application
 
+* `yarn install`
 * `ember serve`
 * Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 

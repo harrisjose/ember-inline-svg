@@ -6,11 +6,6 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     'ember-cli-babel': {
       includePolyfill: true
-    },
-    svg: {
-      optimize: {
-        plugins: [ { removeTitle: true } ]
-      }
     }
   });
 

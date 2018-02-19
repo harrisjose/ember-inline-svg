@@ -17,7 +17,7 @@ module.exports = [
   { removeUnknownsAndDefaults: true },
   { removeNonInheritableGroupAttrs: true },
   { removeUselessStrokeAndFill: true },
-  { removeViewBox: true },
+  { removeViewBox: false },
   { cleanupEnableBackground: true },
   { removeHiddenElems: true },
   { removeEmptyText: true },
@@ -32,5 +32,6 @@ module.exports = [
   { mergePaths: true },
   { removeUnusedNS: true },
   { removeTitle: true },
-  { removeDesc: true }
+  { removeDesc: true },
+  { prefixIds: true }
 ];

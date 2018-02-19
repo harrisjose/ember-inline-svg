@@ -41,7 +41,7 @@ SVGOptimizer.prototype.build = function() {
         var rawSVG   = fs.readFileSync(srcPath, { encoding: 'utf8' });
 
         return new RSVP.Promise(function(resolve, reject) {
-          svgo.optimize(rawSVG).then(function(result) {
+          svgo.optimize(rawSVG, { path: relativePath }).then(function(result) {
             if (result.error) {
               var error = new Error(result.error);
               error.file = relativePath;
