@@ -1,12 +1,12 @@
-/* jshint node: true */
 'use strict';
 
-var fs          = require('fs');
-var merge       = require('merge');
-var mergeTrees  = require('broccoli-merge-trees');
-var flatiron    = require('broccoli-flatiron');
-var Funnel      = require('broccoli-funnel');
+var fs = require('fs');
+var merge = require('merge');
+var mergeTrees = require('broccoli-merge-trees');
+var flatiron = require('broccoli-flatiron');
+var Funnel = require('broccoli-funnel');
 var SVGOptmizer = require('./svg-optimizer');
+var SVGOptmizerOptions = require('./svgo-options');
 
 module.exports = {
   name: 'ember-inline-svg',
@@ -20,14 +20,16 @@ module.exports = {
 
   options: function() {
     return merge(true, {}, {
-      paths:   ['public'],
-      optimize: { /* svgo defaults */ }
+      paths: [ 'public' ],
+      optimize: {
+        plugins: SVGOptmizerOptions
+      }
     }, (this.app && this.app.options && this.app.options.svg) || {});
   },
 
   svgPaths: function() {
     if (this.isDevelopingAddon()) {
-      return ['tests/dummy/public'];
+      return [ 'tests/dummy/public' ];
     }
     return this.options().paths;
   },
@@ -38,7 +40,9 @@ module.exports = {
       return tree;
     }
 
-    return new SVGOptmizer(tree, {svgoConfig: config});
+    return new SVGOptmizer([ tree ], {
+      svgoConfig: config
+    });
   },
 
   treeForApp: function(tree) {
@@ -47,7 +51,7 @@ module.exports = {
     }));
 
     svgs = new Funnel(svgs, {
-      include: [new RegExp(/\.svg$/)]
+      include: [ new RegExp(/\.svg$/) ]
     });
 
     svgs = this.optimizeSVGs(svgs);
@@ -57,6 +61,6 @@ module.exports = {
       trimExtensions: true
     });
 
-    return mergeTrees([tree, svgs]);
+    return mergeTrees([ tree, svgs ]);
   }
 };

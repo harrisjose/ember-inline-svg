@@ -1,4 +1,4 @@
-/* jshint node: true */
+'use strict';
 
 module.exports = function(environment) {
   var ENV = {
@@ -16,6 +16,10 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    'ember-code-block': {
+      style: 'tomorrow-night-eighties',
+      languages: ['handlebars', 'javascript'],
     }
   };
 
@@ -36,6 +40,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {
