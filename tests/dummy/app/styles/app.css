@@ -43,11 +43,3 @@ html, body {
   max-width: 768px;
   text-align: center;
 }
-
-.hljs {
-  display: inline-block;
-  margin-top: 40px;
-  border-radius: 5px;
-  min-width: 400px;
-  max-width: 620px;
-}
