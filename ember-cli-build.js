@@ -6,7 +6,8 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     'ember-cli-babel': {
       includePolyfill: true
-    }
+    },
+    snippetSearchPaths: ['tests/dummy/app']
   });
 
   /*
